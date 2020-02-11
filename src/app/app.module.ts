@@ -11,6 +11,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './component/login/login.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 
+export function jwtTokenGetter() {
+  return localStorage.getItem('access_token');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +29,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
+        tokenGetter: jwtTokenGetter,
         whitelistedDomains: ["localhost:4200","localhost:8000"],
         blacklistedRoutes: ['localhost/auth/login']
       }
